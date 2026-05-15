@@ -1,0 +1,113 @@
+/* ApplicantsPage.css */
+
+/* ── Toolbar ── */
+.page-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  background: #ffffff;
+  color: #1B2D6B;
+  border: 1px solid #eaecf4;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+  white-space: nowrap;
+}
+
+.btn-back:hover { background: #F4F6FB; border-color: #2A3F8F; }
+
+.filter-tabs {
+  display: flex;
+  gap: 4px;
+  background: #ffffff;
+  padding: 5px;
+  border-radius: 12px;
+  border: 1px solid #eaecf4;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #6B7A99;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  text-transform: capitalize;
+}
+
+.filter-tab:hover { background: #F4F6FB; color: #1B2D6B; }
+
+.filter-tab--active { background: #1B2D6B; color: #ffffff; }
+
+.tab-count {
+  padding: 1px 7px;
+  border-radius: 20px;
+  font-size: 10.5px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.filter-tab:not(.filter-tab--active) .tab-count {
+  background: #F4F6FB;
+  color: #1B2D6B;
+}
+
+/* ── Grid ── */
+.applicants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+/* ── States ── */
+.loading-state {
+  text-align: center;
+  padding: 80px;
+  color: #6B7A99;
+  font-size: 15px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 72px 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #eaecf4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.empty-state p {
+  font-size: 15px;
+  color: #6B7A99;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+  .page-toolbar    { flex-direction: column; align-items: stretch; }
+  .filter-tabs     { justify-content: center; }
+  .applicants-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,203 @@
+/*Footer.css — Forsa Platform */
+
+.footer {
+  background: #ffffff;
+  border-top: 1px solid rgba(10, 37, 90, 0.1);
+  padding: 72px 40px 0;
+  font-family: 'Sora', 'Segoe UI', system-ui, sans-serif;
+}
+
+.footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 56px;
+  padding-bottom: 56px;
+  border-bottom: 1px solid rgba(10, 37, 90, 0.1);
+}
+
+/* ── Brand col ── */
+.footer__col--brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+/* Large logo image */
+.footer__logo-img {
+  height: 200px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.footer__brand-name {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0a255a;
+  letter-spacing: -0.5px;
+}
+
+.footer__brand-dot { color: #f5a623; }
+
+.footer__tagline {
+  font-size: 11px;
+  font-weight: 700;
+  color: #f5a623;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer__desc {
+  font-size: 14px;
+  color: #3a5080;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  max-width: 300px;
+}
+
+/* Social row */
+.footer__social-row {
+  display: flex;
+  gap: 10px;
+}
+
+.footer__social-btn {
+  width: 36px;
+  height: 36px;
+  background: rgba(10, 37, 90, 0.05);
+  border: 1px solid rgba(10, 37, 90, 0.12);
+  border-radius: 9px;
+  color: rgba(10, 37, 90, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.footer__social-btn:hover {
+  background: #f5a623;
+  border-color: #f5a623;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ── Col titles ── */
+.footer__col-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0a255a;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+
+/* ── Links ── */
+.footer__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 28px;
+  padding: 0;
+}
+
+.footer__link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: #2e4a80;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+
+.footer__link svg {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.footer__link:hover {
+  color: #f5a623;
+}
+
+.footer__link:hover svg {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.footer__link:active {
+  color: #e8440a;
+}
+
+/* ── Contact mini ── */
+.footer__contact-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #2e4a80;
+  font-weight: 500;
+}
+
+.footer__contact-icon {
+  color: #f5a623;
+  flex-shrink: 0;
+}
+
+/* ── Bottom bar ── */
+.footer__bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  color: #7a95c0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .footer__col--brand {
+    grid-column: 1 / -1;
+  }
+  .footer { padding: 56px 24px 0; }
+}
+
+@media (max-width: 560px) {
+  .footer__inner { grid-template-columns: 1fr; }
+  .footer__bottom { flex-direction: column; text-align: center; }
+}

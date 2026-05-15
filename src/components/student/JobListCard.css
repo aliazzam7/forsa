@@ -1,0 +1,210 @@
+/* JobListCard.css */
+
+.jlc {
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid rgba(27, 45, 107, 0.09);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.jlc::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1B2D6B, #2A3F8F, #F5A623);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.jlc:hover {
+  box-shadow: 0 8px 32px rgba(27, 45, 107, 0.12);
+  transform: translateY(-3px);
+  border-color: rgba(27, 45, 107, 0.18);
+}
+.jlc:hover::before { opacity: 1; }
+
+/* ── Top Row ── */
+.jlc__top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.jlc__logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1B2D6B, #2A3F8F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F5A623;
+  font-size: 18px;
+  font-weight: 800;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.jlc__logo img { width: 100%; height: 100%; object-fit: cover; }
+
+.jlc__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.jlc__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1B2D6B;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jlc__company {
+  font-size: 12.5px;
+  color: #6B7A99;
+  margin: 0;
+  font-weight: 500;
+}
+
+.jlc__save {
+  background: none;
+  border: 1.5px solid rgba(27, 45, 107, 0.12);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6B7A99;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.jlc__save:hover { border-color: #F5A623; color: #F5A623; }
+.jlc__save--saved { border-color: #F5A623; color: #F5A623; background: rgba(245, 166, 35, 0.08); }
+
+/* ── Tags ── */
+.jlc__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jlc__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.jlc__tag--field {
+  background: rgba(27, 45, 107, 0.07);
+  color: #2A3F8F;
+}
+
+/* ── Info Row ── */
+.jlc__info-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.jlc__info {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #6B7A99;
+  font-weight: 500;
+}
+
+/* ── Skills ── */
+.jlc__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.jlc__skill {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #1B2D6B;
+  background: rgba(27, 45, 107, 0.06);
+  border-radius: 6px;
+  padding: 3px 9px;
+}
+
+.jlc__skill--more {
+  color: #6B7A99;
+  background: rgba(107, 122, 153, 0.1);
+}
+
+/* ── Deadline ── */
+.jlc__deadline {
+  font-size: 12px;
+  color: #6B7A99;
+  margin: 0;
+}
+.jlc__deadline strong { color: #e03838; }
+
+/* ── Actions ── */
+.jlc__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.jlc__btn {
+  flex: 1;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.jlc__btn--secondary {
+  background: rgba(27, 45, 107, 0.06);
+  color: #2A3F8F;
+  border: 1.5px solid rgba(27, 45, 107, 0.12);
+}
+.jlc__btn--secondary:hover {
+  background: rgba(27, 45, 107, 0.1);
+}
+
+.jlc__btn--primary {
+  background: linear-gradient(135deg, #1B2D6B 0%, #2A3F8F 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(27, 45, 107, 0.25);
+}
+.jlc__btn--primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(27, 45, 107, 0.35);
+}
+
+@media (max-width: 480px) {
+  .jlc { padding: 16px; }
+  .jlc__actions { flex-direction: column; }
+}

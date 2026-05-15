@@ -1,0 +1,21 @@
+/* ApplicationStatusBadge.css */
+.asb {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 700;
+  border-radius: 20px;
+  letter-spacing: 0.01em;
+}
+
+/* Sizes */
+.asb--sm { font-size: 11px; padding: 3px 9px; }
+.asb--md { font-size: 12.5px; padding: 5px 12px; }
+.asb--lg { font-size: 14px; padding: 7px 16px; }
+
+/* Colors */
+.asb--pending  { background: #fff8e6; color: #c47d00; }
+.asb--accepted { background: #e6f9f1; color: #1a8a5a; }
+.asb--rejected { background: #fef2f2; color: #b91c1c; }
+.asb--removed  { background: #f3f4f6; color: #6B7A99; }

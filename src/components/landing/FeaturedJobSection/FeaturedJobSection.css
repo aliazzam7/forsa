@@ -1,0 +1,222 @@
+.fjs-section {
+  padding: 110px 24px;
+  background: #f7f9fc;
+  position: relative;
+  overflow: hidden;
+}
+
+.fjs-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.fjs-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.fjs-tag {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(245, 166, 35, 0.12);
+  color: #f5a623;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+}
+
+.fjs-title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #1a2340;
+  margin-bottom: 18px;
+}
+
+.fjs-title span {
+  background: linear-gradient(135deg, #f5a623, #f76b1c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fjs-subtitle {
+  max-width: 700px;
+  margin: auto;
+  color: #6b7280;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.fjs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.fjs-card {
+  background: white;
+  border-radius: 24px;
+  padding: 28px;
+  border: 1px solid #edf0f6;
+  transition: 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fjs-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(135deg, #f5a623, #f76b1c);
+  transition: 0.4s;
+}
+
+.fjs-card:hover::before {
+  left: 0;
+}
+
+.fjs-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.fjs-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.fjs-company-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #1a2340, #2c3e6b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5a623;
+}
+
+.fjs-badge {
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fjs-badge.fulltime {
+  background: #ecfdf3;
+  color: #027a48;
+}
+
+.fjs-badge.parttime {
+  background: #fff4ed;
+  color: #c4320a;
+}
+
+.fjs-badge.internship {
+  background: #eff8ff;
+  color: #175cd3;
+}
+
+.fjs-job-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1a2340;
+  margin-bottom: 18px;
+}
+
+.fjs-company,
+.fjs-location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #667085;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.fjs-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.fjs-skill {
+  background: #f3f5f9;
+  border: 1px solid #e5e7eb;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.fjs-button {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f5a623, #f76b1c);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.fjs-button:hover {
+  transform: scale(1.02);
+  opacity: 0.92;
+}
+
+.fjs-bottom {
+  display: flex;
+  justify-content: center;
+  margin-top: 55px;
+}
+
+.fjs-view-btn {
+  padding: 15px 28px;
+  border-radius: 14px;
+  border: 2px solid #1a2340;
+  background: transparent;
+  color: #1a2340;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.fjs-view-btn:hover {
+  background: #1a2340;
+  color: white;
+}
+
+@media (max-width: 992px) {
+  .fjs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .fjs-title {
+    font-size: 36px;
+  }
+
+  .fjs-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,271 @@
+/* PostJobPage.css */
+
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 66px);
+}
+
+/* ── Card ── */
+.post-job-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #eaecf4;
+  padding: 32px 36px;
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* ── Form layout ── */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.form-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1B2D6B;
+}
+
+.required { color: #dc2626; margin-left: 2px; }
+
+/* ── Inputs ── */
+.form-input,
+.form-textarea {
+  padding: 11px 14px;
+  border-radius: 11px;
+  border: 1.5px solid #eaecf4;
+  font-size: 14px;
+  color: #1B2D6B;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.18s;
+  width: 100%;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus { border-color: #2A3F8F; }
+
+.form-input--error { border-color: #dc2626 !important; }
+
+.form-textarea { resize: vertical; }
+
+.error-msg {
+  font-size: 12px;
+  color: #dc2626;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ── Radio cards ── */
+.radio-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.radio-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #eaecf4;
+  background: #F4F6FB;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6B7A99;
+  transition: border-color 0.18s, background 0.18s, color 0.18s;
+  user-select: none;
+}
+
+.radio-card input { display: none; }
+
+.radio-card:hover { border-color: #2A3F8F; color: #1B2D6B; }
+
+.radio-card--active {
+  background: #EEF2FF;
+  border-color: #2A3F8F;
+  color: #1B2D6B;
+}
+
+/* ── Skills ── */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #eaecf4;
+  background: #F4F6FB;
+  color: #6B7A99;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.skill-toggle:hover { border-color: #2A3F8F; color: #1B2D6B; }
+
+.skill-toggle--active {
+  background: #1B2D6B;
+  border-color: #1B2D6B;
+  color: #ffffff;
+}
+
+.custom-skill-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.custom-skill-row .form-input { flex: 1; }
+
+.btn-add-skill {
+  padding: 11px 20px;
+  background: #F5A623;
+  color: #1B2D6B;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+  white-space: nowrap;
+}
+
+.btn-add-skill:hover { background: #ffc04a; }
+
+/* ── Selected skill tags ── */
+.selected-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.selected-skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: #EEF2FF;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #2A3F8F;
+}
+
+.selected-skill-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6B7A99;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+
+.selected-skill-tag button:hover { color: #dc2626; }
+
+/* ── Form actions ── */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 6px;
+  border-top: 1px solid #f0f3fa;
+}
+
+.btn-cancel {
+  padding: 11px 26px;
+  background: #F4F6FB;
+  color: #6B7A99;
+  border: 1.5px solid #eaecf4;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.btn-cancel:hover { background: #e8ecf4; color: #1B2D6B; }
+
+.btn-post {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 32px;
+  background: #1B2D6B;
+  color: #ffffff;
+  border: none;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.btn-post:hover:not(:disabled) { background: #2A3F8F; }
+.btn-post:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Success ── */
+.success-box {
+  text-align: center;
+  padding: 60px 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #eaecf4;
+  min-width: 320px;
+}
+
+.success-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #E8F8F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.success-box h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1B2D6B;
+  margin: 0 0 8px;
+}
+
+.success-box p { color: #6B7A99; font-size: 14px; margin: 0; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .post-job-card { padding: 20px 18px; }
+  .form-row      { grid-template-columns: 1fr; }
+  .form-actions  { flex-direction: column; }
+  .btn-cancel, .btn-post { width: 100%; justify-content: center; }
+}

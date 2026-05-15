@@ -1,0 +1,15 @@
+/* LandingPage.css */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-root {
+  font-family: 'Sora', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #1a2340;
+  background: #f9fafc;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}

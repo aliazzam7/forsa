@@ -1,0 +1,93 @@
+/* ─── Layout ─────────────────────────────────────────────── */
+.admin-layout  { display: flex; min-height: 100vh; background: #F4F6FB; }
+.admin-main    { flex: 1; margin-left: 248px; display: flex; flex-direction: column; min-height: 100vh; }
+.admin-content { padding: 28px 32px 40px; flex: 1; }
+
+/* ─── Toolbar ────────────────────────────────────────────── */
+.page-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+  background: #ffffff;
+  padding: 5px;
+  border-radius: 12px;
+  border: 1px solid #e8ecf4;
+}
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #6B7A99;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: capitalize;
+}
+
+.filter-tab:hover  { background: #F4F6FB; color: #1B2D6B; }
+.filter-tab.active { background: #1B2D6B; color: #ffffff; }
+
+.tab-count {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+}
+
+.filter-tab:not(.active) .tab-count {
+  background: #e8ecf4;
+  color: #6B7A99;
+}
+
+/* Search */
+.toolbar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #e8ecf4;
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 40px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.toolbar-search:focus-within {
+  border-color: #1B2D6B;
+  box-shadow: 0 0 0 3px rgba(27,45,107,0.08);
+}
+
+.toolbar-search-icon { color: #6B7A99; flex-shrink: 0; }
+
+.toolbar-search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13.5px;
+  color: #1B2D6B;
+  width: 220px;
+}
+
+.toolbar-search-input::placeholder { color: #9aabc2; }
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .admin-main    { margin-left: 0; }
+  .admin-content { padding: 20px 16px 32px; }
+  .toolbar-search-input { width: 140px; }
+}

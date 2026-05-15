@@ -1,0 +1,158 @@
+/* ApplicantCard.css */
+
+.applicant-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #eaecf4;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.applicant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(27, 45, 107, 0.07);
+}
+
+/* Status left-border accent */
+.applicant-card--accepted { border-left: 3px solid #16a34a; }
+.applicant-card--rejected { border-left: 3px solid #dc2626; opacity: 0.82; }
+.applicant-card--pending  { border-left: 3px solid #F5A623; }
+
+/* ── Header ── */
+.ac-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.ac-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: #1B2D6B;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ac-info { flex: 1; min-width: 0; }
+
+.ac-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1B2D6B;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ac-email {
+  font-size: 12px;
+  color: #6B7A99;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Status chip ── */
+.ac-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ac-chip--orange { background: #FFF4E5; color: #a05e00; }
+.ac-chip--green  { background: #E8F8F2; color: #0f6e56; }
+.ac-chip--red    { background: #FEECEC; color: #a32d2d; }
+
+/* ── Skills ── */
+.ac-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ac-skill-tag {
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #F4F6FB;
+  color: #1B2D6B;
+  font-size: 11.5px;
+  font-weight: 600;
+  border: 1px solid #eaecf4;
+}
+
+/* ── Footer ── */
+.ac-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid #f0f3fa;
+}
+
+.ac-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  text-decoration: none;
+  border: none;
+  white-space: nowrap;
+}
+
+.ac-btn:active { transform: scale(0.97); }
+
+.ac-btn--cv {
+  background: #F4F6FB;
+  color: #1B2D6B;
+  border: 1px solid #eaecf4;
+}
+.ac-btn--cv:hover { background: #EEF2FF; border-color: #2A3F8F; }
+
+.ac-decision-btns {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.ac-btn--accept { background: #E8F8F2; color: #0f6e56; }
+.ac-btn--accept:hover { background: #16a34a; color: #ffffff; }
+
+.ac-btn--reject { background: #FEECEC; color: #a32d2d; }
+.ac-btn--reject:hover { background: #dc2626; color: #ffffff; }
+
+.ac-decision-done {
+  margin-left: auto;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6B7A99;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .applicant-card { padding: 16px; }
+  .ac-decision-btns { margin-left: 0; width: 100%; }
+  .ac-btn--accept, .ac-btn--reject { flex: 1; justify-content: center; }
+}
