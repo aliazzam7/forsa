@@ -227,3 +227,51 @@
   .btn-action span { display: none; }
   .btn-action { padding: 7px; border-radius: 8px; }
 }
+
+/* ─── Add these to your existing ManageJobsPage.css ─── */
+
+/* Deleted row styling */
+.deleted-row {
+  opacity: 0.6;
+  background: #fafafa;
+}
+.deleted-row td {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+.deleted-row .status-badge,
+.deleted-row .type-badge,
+.deleted-row .mode-badge {
+  text-decoration: none;
+}
+
+/* Status badges — add deleted + restored states */
+.status-badge--deleted {
+  background: #f1f5f9;
+  color: #64748b;
+}
+.status-dot--deleted {
+  background: #94a3b8;
+}
+
+/* Restore button */
+.btn-restore {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+.btn-restore:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+/* Hard delete button */
+.btn-hard-delete {
+  background: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+.btn-hard-delete:hover {
+  background: #ffe4e6;
+  border-color: #fda4af;
+}

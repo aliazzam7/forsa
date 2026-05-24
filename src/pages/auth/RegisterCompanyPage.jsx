@@ -1,20 +1,23 @@
+// src/pages/auth/RegisterCompanyPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Building2, Mail, Lock, ShieldCheck, Globe, Briefcase, ChevronRight } from 'lucide-react';
 import './AuthPages.css';
 import logo from '../../assets/images/logoforsa.jpeg';
+import authService from '../../services/authService';
+import Toast from '../../components/common/Toast';
+import useToast from '../../components/hooks/useToast';
 
 const RegisterCompanyPage = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    companyName: '', email: '', password: '', confirm: '',
-    industry: '', website: '',
-  });
-  const [error, setError] = useState('');
+  const { toast, showToast, hideToast } = useToast();
+  const [form, setForm]       = useState({ companyName: '', email: '', password: '', confirm: '', industry: '', website: '' });
+  const [error, setError]     = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.companyName || !form.email || !form.password || !form.confirm) {
       setError('Please fill in all required fields.'); return;
@@ -22,23 +25,47 @@ const RegisterCompanyPage = () => {
     if (form.password !== form.confirm) {
       setError('Passwords do not match.'); return;
     }
-    navigate('/company/dashboard');
+    setLoading(true);
+    setError('');
+    try {
+      await authService.registerCompany({
+        companyName: form.companyName,
+        email:       form.email,
+        password:    form.password,
+        industry:    form.industry,
+        website:     form.website,
+      });
+
+      showToast(
+        '🎉 Company registered! Your account is pending admin approval. You\'ll be able to login once approved.',
+        'success'
+      );
+
+      setTimeout(() => navigate('/login'), 3500);
+
+    } catch (err) {
+      const msg = err.message || 'Registration failed. Please try again.';
+      setError(msg);
+      showToast(msg, 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="auth-page">
+      {toast && <Toast message={toast.message} type={toast.type} onClose={hideToast} duration={5000} />}
+
       {/* ── Left Panel ── */}
       <div className="auth-left">
         <div className="auth-left-inner">
           <img src={logo} alt="Forsa Logo" className="auth-logo-img" />
-
           <div className="auth-left-text">
             <h2 className="auth-left-title">Find Your Next Hire</h2>
             <p className="auth-left-sub">
               Post positions, browse verified student profiles, and build your dream team with Forsa.
             </p>
           </div>
-
           <div className="auth-left-steps">
             <div className="auth-step"><ChevronRight size={16}/><span>Post jobs & internships easily</span></div>
             <div className="auth-step"><ChevronRight size={16}/><span>Review CVs and shortlist talent</span></div>
@@ -95,7 +122,6 @@ const RegisterCompanyPage = () => {
                   </select>
                 </div>
               </div>
-
               <div className="form-group">
                 <label>Website</label>
                 <div className="input-wrapper">
@@ -115,7 +141,6 @@ const RegisterCompanyPage = () => {
                     value={form.password} onChange={handleChange} className="form-input"/>
                 </div>
               </div>
-
               <div className="form-group">
                 <label>Confirm Password <span className="required">*</span></label>
                 <div className="input-wrapper">
@@ -126,8 +151,8 @@ const RegisterCompanyPage = () => {
               </div>
             </div>
 
-            <button type="submit" className="auth-submit-btn">
-              <Building2 size={18}/> Register Company
+            <button type="submit" className="auth-submit-btn" disabled={loading}>
+              {loading ? 'Registering…' : <><Building2 size={18}/> Register Company</>}
             </button>
           </form>
 

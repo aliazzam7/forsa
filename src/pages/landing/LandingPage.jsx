@@ -24,7 +24,8 @@ const LandingPage = () => {
   return (
     <>
       <Navbar scrollTo={scrollTo} />
-      <div ref={refs.hero}>    <HeroFeaturesSection />   </div>
+      <div ref={refs.hero}>    <HeroFeaturesSection scrollTo={scrollTo} />   </div>
+      {/* <div ref={refs.hero}>    <HeroFeaturesSection />   </div> */}
       <div ref={refs.jobs}>    <FeaturedJobsSection />  </div>
       <div ref={refs.howitworks}><HowItWorksSection />  </div>
       <div ref={refs.about}>   <AboutSection />         </div>

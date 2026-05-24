@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock, Briefcase, ArrowRight, BookmarkPlus } from 'lucide-react';
+import { BASE_URL } from '../../services/api'; // [FIX 1] أضفنا import لـ BASE_URL
 import './JobListCard.css';
 
 const TYPE_COLORS = {
@@ -27,9 +28,9 @@ const JobListCard = ({
   skills      = ['React', 'CSS', 'TypeScript'],
   deadline    = '2025-08-30',
   postedAgo   = '2 days ago',
-  saved        = false,
+  saved       = false,
   onSave,
-  onViewAll,   // callback when "View All Jobs" is clicked (goes to /student/jobs)
+  onViewAll,
 }) => {
   const navigate = useNavigate();
 
@@ -40,13 +41,19 @@ const JobListCard = ({
     ? new Date(deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
     : null;
 
+  // [FIX 1] بناء الـ logo URL الصح مع base URL
+  // لو الـ logo فيه http بالأول خليه كما هو، غير هيك أضف base URL قدامه
+  const logoSrc = companyLogo
+    ? (companyLogo.startsWith('http') ? companyLogo : `${BASE_URL.replace('/api', '')}/${companyLogo}`)
+    : null;
+
   return (
     <div className="jlc">
       {/* Top Row */}
       <div className="jlc__top">
         <div className="jlc__logo">
-          {companyLogo
-            ? <img src={companyLogo} alt={company} />
+          {logoSrc
+            ? <img src={logoSrc} alt={company} />
             : <span>{company.charAt(0)}</span>}
         </div>
         <div className="jlc__meta">
@@ -70,15 +77,14 @@ const JobListCard = ({
         <span className="jlc__tag" style={{ background: modeStyle.bg, color: modeStyle.color }}>
           <MapPin size={11} /> {mode}
         </span>
-        <span className="jlc__tag jlc__tag--field">
-          {field}
-        </span>
+        {field && (
+          <span className="jlc__tag jlc__tag--field">{field}</span>
+        )}
       </div>
 
       {/* Location & Posted */}
       <div className="jlc__info-row">
         <span className="jlc__info"><MapPin size={12} /> {location}</span>
-        <span className="jlc__info"><Clock size={12} /> {postedAgo}</span>
       </div>
 
       {/* Skills */}

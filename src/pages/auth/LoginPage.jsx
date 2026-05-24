@@ -1,38 +1,71 @@
+// src/pages/auth/LoginPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, LogIn, UserCircle2, ChevronRight } from 'lucide-react';
 import './AuthPages.css';
 import logo from '../../assets/images/logoforsa.jpeg';
+import authService from '../../services/authService';
+import Toast from '../../components/common/Toast';
+import useToast from '../../components/hooks/useToast';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: '', password: '', role: 'student' });
-  const [error, setError] = useState('');
+  const { toast, showToast, hideToast } = useToast();
+  const [form, setForm]       = useState({ email: '', password: '', role: 'student' });
+  const [error, setError]     = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.email || !form.password) { setError('Please fill in all fields.'); return; }
-    if (form.role === 'student') navigate('/student/dashboard');
-    if (form.role === 'company') navigate('/company/dashboard');
-    if (form.role === 'admin')   navigate('/admin/dashboard');
+    setLoading(true);
+    setError('');
+    try {
+      const data = await authService.login(form.email, form.password);
+      const actualRole = data.user?.role || data.role;
+
+      if (actualRole !== form.role) {
+        authService.logout();
+        const msg = `This account is registered as "${actualRole}". Please select the correct role.`;
+        setError(msg);
+        showToast(msg, 'error');
+        return;
+      }
+
+      showToast('Welcome back! Redirecting to your dashboard…', 'success');
+
+      setTimeout(() => {
+        if (actualRole === 'student')      navigate('/student/dashboard');
+        else if (actualRole === 'company') navigate('/company/dashboard');
+        else if (actualRole === 'admin')   navigate('/admin/dashboard');
+        else setError('Unknown role. Please contact support.');
+      }, 1200);
+
+    } catch (err) {
+      const msg = err.message || 'Login failed. Please try again.';
+      setError(msg);
+      showToast(msg, 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="auth-page">
+      {toast && <Toast message={toast.message} type={toast.type} onClose={hideToast} />}
+
       {/* ── Left Panel ── */}
       <div className="auth-left">
         <div className="auth-left-inner">
           <img src={logo} alt="Forsa Logo" className="auth-logo-img" />
-
           <div className="auth-left-text">
             <h2 className="auth-left-title">Welcome Back!</h2>
             <p className="auth-left-sub">
               Sign in and pick up right where you left off — your next opportunity is waiting.
             </p>
           </div>
-
           <div className="auth-left-steps">
             <div className="auth-step"><ChevronRight size={16}/><span>Access your personalized dashboard</span></div>
             <div className="auth-step"><ChevronRight size={16}/><span>Track your applications in real time</span></div>
@@ -85,8 +118,8 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <button type="submit" className="auth-submit-btn">
-              <LogIn size={18}/> Sign In
+            <button type="submit" className="auth-submit-btn" disabled={loading}>
+              {loading ? 'Signing in…' : <><LogIn size={18}/> Sign In</>}
             </button>
           </form>
 

@@ -17,15 +17,15 @@
 }
 
 .sn__inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 28px;
+  width: 100%;
+  padding: 0 12px 0 8px;
   height: 68px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
+/* ── Brand / Logo ── */
 .sn__brand {
   display: flex;
   align-items: center;
@@ -34,6 +34,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .sn__logo-image {
@@ -43,35 +44,13 @@
   display: block;
 }
 
-/* ── Brand ── */
-.sn__logo-mark {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #1B2D6B 0%, #2A3F8F 100%);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #F5A623;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -1px;
-  flex-shrink: 0;
-}
-
-.sn__logo-text {
-  font-size: 22px;
-  font-weight: 800;
-  color: #1B2D6B;
-  letter-spacing: -0.5px;
-}
-
 /* ── Desktop Links ── */
 .sn__links {
   display: flex;
   align-items: center;
   gap: 2px;
-  margin-left: 32px;
+  /* Reduced from 32px — links sit tight after the logo */
+  margin-left: 16px;
   flex: 1;
 }
 
@@ -119,20 +98,23 @@
   background: #F5A623;
 }
 
-/* ── Right ── */
+/* ── Right section ── */
 .sn__right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  /* Reduced gap so items sit closer together on the right */
+  gap: 6px;
   margin-left: auto;
 }
 
-/* ── Notifications ── */
-.sn__notif-wrap {
+/* ══════════════════════════════════
+   Saved Jobs
+══════════════════════════════════ */
+.sn__saved-wrap {
   position: relative;
 }
 
-.sn__notif-btn {
+.sn__saved-btn {
   position: relative;
   width: 40px;
   height: 40px;
@@ -147,13 +129,13 @@
   transition: all 0.2s;
 }
 
-.sn__notif-btn:hover {
+.sn__saved-btn:hover {
   border-color: #1B2D6B;
   color: #1B2D6B;
   background: rgba(27, 45, 107, 0.05);
 }
 
-.sn__notif-badge {
+.sn__saved-badge {
   position: absolute;
   top: -4px; right: -4px;
   min-width: 18px;
@@ -168,13 +150,14 @@
   justify-content: center;
   border: 2px solid #fff;
   padding: 0 3px;
+  font-family: 'Sora', system-ui, sans-serif;
 }
 
-.sn__notif-panel {
+.sn__saved-panel {
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
-  width: 320px;
+  width: 310px;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 8px 40px rgba(27, 45, 107, 0.15);
@@ -184,7 +167,7 @@
   z-index: 100;
 }
 
-.sn__notif-header {
+.sn__saved-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -195,7 +178,7 @@
   color: #1B2D6B;
 }
 
-.sn__notif-clear {
+.sn__saved-viewall {
   background: none;
   border: none;
   font-size: 11.5px;
@@ -203,48 +186,75 @@
   cursor: pointer;
   font-weight: 600;
   font-family: 'Sora', system-ui, sans-serif;
+  transition: opacity 0.15s;
 }
+.sn__saved-viewall:hover { opacity: 0.75; }
 
-.sn__notif-list {
-  max-height: 260px;
+.sn__saved-list {
+  max-height: 270px;
   overflow-y: auto;
 }
 
-.sn__notif-item {
+.sn__saved-item {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 16px;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 16px;
   border-bottom: 1px solid rgba(27, 45, 107, 0.05);
   cursor: pointer;
   transition: background 0.15s;
 }
+.sn__saved-item:last-child { border-bottom: none; }
+.sn__saved-item:hover { background: rgba(245, 166, 35, 0.05); }
 
-.sn__notif-item:hover { background: rgba(245, 166, 35, 0.05); }
-.sn__notif-item--unread { background: rgba(27, 45, 107, 0.03); }
-
-.sn__notif-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #F5A623;
-  flex-shrink: 0;
-  margin-top: 5px;
-}
-.sn__notif-dot--read { background: #d0d5e5; }
-
-.sn__notif-msg {
-  font-size: 12.5px;
+.sn__saved-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(27, 45, 107, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #1B2D6B;
-  margin: 0 0 3px;
-  line-height: 1.4;
+  flex-shrink: 0;
 }
-.sn__notif-time {
+
+.sn__saved-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.sn__saved-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1B2D6B;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sn__saved-company {
   font-size: 11px;
   color: #6B7A99;
 }
 
-/* ── User Menu ── */
+.sn__saved-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 16px;
+  color: #a0abc0;
+  font-size: 12.5px;
+}
+.sn__saved-empty p { margin: 0; }
+
+/* ══════════════════════════════════
+   User Menu
+══════════════════════════════════ */
 .sn__user-menu {
   position: relative;
 }
@@ -364,7 +374,7 @@
   transition: max-height 0.35s ease;
   padding: 0 16px;
 }
-.sn__mobile--open { max-height: 400px; padding: 10px 16px 18px; }
+.sn__mobile--open { max-height: 460px; padding: 10px 16px 18px; }
 
 .sn__mobile-link {
   display: flex;
@@ -385,6 +395,42 @@
 .sn__mobile-link:hover { color: #1B2D6B; background: rgba(27, 45, 107, 0.05); }
 .sn__mobile-link--active { color: #1B2D6B; background: rgba(27, 45, 107, 0.07); font-weight: 700; }
 .sn__mobile-link--active svg { color: #F5A623; }
+
+.sn__mobile-saved {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: none;
+  border: none;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1B2D6B;
+  padding: 11px 12px;
+  border-radius: 9px;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s, background 0.2s;
+  width: 100%;
+}
+.sn__mobile-saved:hover { background: rgba(27, 45, 107, 0.05); }
+.sn__mobile-saved svg { color: #F5A623; }
+
+.sn__mobile-saved-badge {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  background: #F5A623;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  font-family: 'Sora', system-ui, sans-serif;
+}
 
 .sn__mobile-logout {
   display: flex;
@@ -413,9 +459,9 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .sn__links   { display: none; }
-  .sn__right   { display: none; }
+  .sn__links     { display: none; }
+  .sn__right     { display: none; }
   .sn__hamburger { display: flex; }
-  .sn__mobile  { display: flex; }
-  .sn__inner   { padding: 0 16px; }
+  .sn__mobile    { display: flex; }
+  .sn__inner     { padding: 0 12px; }
 }

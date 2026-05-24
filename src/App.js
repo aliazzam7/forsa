@@ -15,6 +15,7 @@ import PostJobPage         from './pages/company/PostJobPage';
 import MyJobsPage          from './pages/company/MyJobsPage';
 import ApplicantsPage      from './pages/company/ApplicantsPage';
 import CompanySettingsPage from './pages/company/SettingsPage';
+import EditJobPage from './pages/company/EditJobPage';
 
 // ── Auth Pages ───────────────────────────────────────────────────
 import LoginPage           from './pages/auth/LoginPage';
@@ -60,6 +61,7 @@ function App() {
         <Route path="/company/dashboard" element={<CompanyDashboard />} />
         <Route path="/company/post-job" element={<PostJobPage />} />
         <Route path="/company/my-jobs" element={<MyJobsPage />} />
+        <Route path="/company/edit-job/:id" element={<EditJobPage />} />
         <Route path="/company/applicants/:jobId" element={<ApplicantsPage />} />
         <Route path="/company/settings" element={<CompanySettingsPage />} />
 

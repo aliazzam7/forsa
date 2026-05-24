@@ -1,8 +1,8 @@
 import React from 'react';
-import { Ban, Trash2, MoreHorizontal } from 'lucide-react';
+import { Ban, Trash2, MoreHorizontal, Pencil } from 'lucide-react';
 import './UserTable.css';
 
-const UserTable = ({ users, onBan, onDelete }) => {
+const UserTable = ({ users, onBan, onDelete, onEdit }) => {
   return (
     <div className="user-table-wrapper">
       <table className="user-table">
@@ -64,14 +64,27 @@ const UserTable = ({ users, onBan, onDelete }) => {
                 {/* Actions */}
                 <td>
                   <div className="action-buttons">
+                    {/* Edit */}
                     <button
-                      className="btn-action btn-ban"
+                      className="btn-action btn-edit"
+                      onClick={() => onEdit && onEdit(user)}
+                      title="Edit user"
+                    >
+                      <Pencil size={14} strokeWidth={2.2} />
+                      <span>Edit</span>
+                    </button>
+
+                    {/* Ban / Unban */}
+                    <button
+                      className={`btn-action ${user.status === 'banned' ? 'btn-unban' : 'btn-ban'}`}
                       onClick={() => onBan && onBan(user._id || user.id)}
-                      title="Ban user"
+                      title={user.status === 'banned' ? 'Unban user' : 'Ban user'}
                     >
                       <Ban size={14} strokeWidth={2.2} />
-                      <span>Ban</span>
+                      <span>{user.status === 'banned' ? 'Unban' : 'Ban'}</span>
                     </button>
+
+                    {/* Delete */}
                     <button
                       className="btn-action btn-delete"
                       onClick={() => onDelete && onDelete(user._id || user.id)}

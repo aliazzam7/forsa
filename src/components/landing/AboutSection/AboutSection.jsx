@@ -13,9 +13,9 @@ import {
 import './AboutSection.css';
 
 const TEAM = [
-  { initials: 'GA', name: 'Ghadeer Abdallah', role: 'Lead Developer',   icon: Code2,   phone: '70258628' },
-  { initials: 'M',  name: 'Malak',            role: 'Backend Engineer', icon: Server,  phone: '71592870' },
-  { initials: 'J',  name: 'Jana',             role: 'UI / UX Designer', icon: Palette, phone: '71475669' },
+  { initials: 'GA', name: ' Ghadeer Abdallah ', role: 'Lead Developer',   icon: Code2,   phone: '70258628' },
+  { initials: 'M',  name: ' Malak Mohamad ',            role: 'Backend Engineer', icon: Server,  phone: '71592870' },
+  { initials: 'J',  name: ' Jana Zeer ',             role: 'UI / UX Designer', icon: Palette, phone: '71475669' },
 ];
 
 const VALUES = [
@@ -32,7 +32,7 @@ const VALUES = [
 ];
 
 const HIGHLIGHTS = [
-  { icon: CalendarDays, num: '2025', label: 'Founded'    },
+  { icon: CalendarDays, num: '2026', label: 'Founded'    },
   { icon: Users,        num: '3',    label: 'Developers' },
   { icon: Infinity,     num: '∞',    label: 'Ambition'   },
 ];

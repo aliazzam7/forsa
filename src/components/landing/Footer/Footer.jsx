@@ -107,11 +107,11 @@ const Footer = ({ scrollTo }) => {
           <div className="footer__contact-mini">
             <div className="footer__contact-item">
               <Mail size={14} className="footer__contact-icon" />
-              <span>hello@forsa-platform.com</span>
+              <span>malak.mhmdd.17@gmail.com</span>
             </div>
             <div className="footer__contact-item">
               <Phone size={14} className="footer__contact-icon" />
-              <span>+961 70 000 000</span>
+              <span>+961 70 258 628</span>
             </div>
             <div className="footer__contact-item">
               <MapPin size={14} className="footer__contact-icon" />
@@ -124,8 +124,8 @@ const Footer = ({ scrollTo }) => {
 
       {/* Bottom bar */}
       <div className="footer__bottom">
-        <p>© 2025 Forsa Platform. All rights reserved.</p>
-        <p>Built with care by students, for students.</p>
+        <p>© 2026 Forsa Platform. All rights reserved.</p>
+        <p>Built With Care By 3 Students, For  Students.</p>
       </div>
     </footer>
   );

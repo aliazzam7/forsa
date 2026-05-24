@@ -209,3 +209,25 @@
     border-radius: 8px;
   }
 }
+
+/* Edit button */
+.btn-edit {
+  background: #f0f4ff;
+  color: #2e48a8;
+  border: 1px solid #c7d4f8;
+}
+.btn-edit:hover {
+  background: #dce6ff;
+  border-color: #a4b8f5;
+}
+
+/* Unban button */
+.btn-unban {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+.btn-unban:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+}
