@@ -287,7 +287,7 @@ const ManageCompaniesPage = () => {
                     style={{ cursor: 'pointer' }}
                   >
                     <div className="company-card__header">
-                      {/* ← logo يظهر إذا موجود، وإلا الحرف */}
+                   
                       <CompanyAvatar logo={company.logo} name={company.name} />
                       <div className="company-info">
                         <h3 className="company-name">{company.name}</h3>

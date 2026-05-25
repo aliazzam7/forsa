@@ -8,8 +8,6 @@ const adminService = {
     return await request('GET', '/admin/dashboard');
   },
 
-  // ─── USERS ───────────────────────────────────────────────────
-
   // GET /api/admin/users
   getAllUsers: async () => {
     return await request('GET', '/admin/users');
@@ -29,8 +27,6 @@ const adminService = {
   deleteUser: async (userId) => {
     return await request('DELETE', `/admin/users/${userId}`);
   },
-
-  // ─── COMPANIES ───────────────────────────────────────────────
 
   // GET /api/admin/companies
   getAllCompanies: async () => {
@@ -57,8 +53,6 @@ const adminService = {
     return await request('DELETE', `/admin/companies/${companyId}`);
   },
 
-  // ─── JOBS ─────────────────────────────────────────────────────
-
   // GET /api/admin/jobs
   getAllJobs: async () => {
     return await request('GET', '/admin/jobs');
@@ -73,8 +67,6 @@ const adminService = {
   deleteJob: async (jobId) => {
     return await request('DELETE', `/admin/jobs/${jobId}`);
   },
-
-  // ─── ADMIN PROFILE ────────────────────────────────────────────
 
   // GET /api/admin/profile
   getProfile: async () => {

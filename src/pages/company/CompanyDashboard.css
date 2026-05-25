@@ -1,6 +1,3 @@
-/* CompanyDashboard.css  (+ shared layout styles) */
-
-/* ── Shared layout (used by all company pages) ── */
 .company-layout {
   display: flex;
   min-height: 100vh;
@@ -352,11 +349,6 @@
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat-card__value { font-size: 22px; }
 }
-
-/* ─── Add these snippets to ALL company CSS files ───────────────
-   (CompanyDashboard.css, MyJobsPage.css, ApplicantsPage.css,
-    PostJobPage.css, SettingsPage.css)
-─────────────────────────────────────────────────────────────── */
 
 /* Spinner animation for Loader2 icon */
 @keyframes spin {

@@ -270,11 +270,6 @@
   .btn-cancel, .btn-post { width: 100%; justify-content: center; }
 }
 
-/* ─── Add these snippets to ALL company CSS files ───────────────
-   (CompanyDashboard.css, MyJobsPage.css, ApplicantsPage.css,
-    PostJobPage.css, SettingsPage.css)
-─────────────────────────────────────────────────────────────── */
-
 /* Spinner animation for Loader2 icon */
 @keyframes spin {
   from { transform: rotate(0deg); }

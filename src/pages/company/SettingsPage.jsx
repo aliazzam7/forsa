@@ -49,14 +49,6 @@ const SettingsPage = () => {
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
 
-  /*
-    Backend getProfile() returns a flat company object:
-    {
-      id, company_name, email, phone, website, linkedin, twitter,
-      industry, size, location, about, logo, status, ...
-    }
-    NOTE: name field might be "company_name" — we handle both.
-  */
   const [company, setCompany] = useState({
     name: '', industry: 'Technology', size: '51–200', location: '', about: '',
   });
@@ -77,16 +69,14 @@ const SettingsPage = () => {
     const load = async () => {
       try {
         const d = await companyService.getProfile();
-        // company_name OR name — backend uses company_name
-        // const displayName = d.company_name ?? d.name ?? '';
         const displayName = d.company_name ?? d.name ?? '';
 
            setCompany({
             name:     displayName,
             industry: d.industry     ?? 'Technology',
-            size:     d.company_size ?? '51–200',        // ← was d.size
+            size:     d.company_size ?? '51–200',        
             location: d.location     ?? '',
-            about:    d.description  ?? d.about ?? '',   // ← DB returns description
+            about:    d.description  ?? d.about ?? '',   
           });
 
         setContact({

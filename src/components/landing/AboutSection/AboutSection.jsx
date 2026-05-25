@@ -46,7 +46,7 @@ const AboutSection = () => (
         <h2 className="about__title">About Forsa Platform</h2>
 
         <p className="about__p">
-          <strong>Forsa</strong> (meaning "Opportunity" in Arabic) is a student–company job matching
+          <strong>Forsa</strong> (meaning "Opportunity" ) is a student–company job matching
           platform built to bridge the gap between university talent and leading employers.
         </p>
         <p className="about__p">

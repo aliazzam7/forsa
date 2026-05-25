@@ -91,7 +91,6 @@
   .admin-content { padding: 20px 16px 32px; }
   .toolbar-search-input { width: 140px; }
 }
-/* ─── Add these styles to your existing ManageUsersPage.css ─── */
 
 /* Modal Overlay */
 .modal-overlay {
@@ -258,7 +257,6 @@
 }
 .btn-modal-save:hover:not(:disabled) { background: #243a8a; }
 .btn-modal-save:disabled { opacity: 0.6; cursor: not-allowed; }
-/* ─── Add to ManageUsersPage.css (or ManageUsersPage_modal.css) ─── */
 
 /* Toggle row container */
 .status-toggle-row {

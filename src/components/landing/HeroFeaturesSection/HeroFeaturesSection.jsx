@@ -51,7 +51,6 @@ function useTypingLoop(text) {
   return displayed;
 }
 
-// ── Format number: 1500 → "1,500+" ──────────────────────────
 function formatStat(num) {
   if (num === null) return '…';
   return num.toLocaleString() + '+';
@@ -70,7 +69,7 @@ const HeroFeaturesSection = ({ scrollTo }) => {
         if (json.data) setStats(json.data);
       })
       .catch(() => {
-        // إذا فشل الfetch خلي الأرقام كما هي (null → '…')
+        
       });
   }, []);
 

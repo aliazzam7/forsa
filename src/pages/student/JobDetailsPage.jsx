@@ -30,10 +30,7 @@ const ApplyModal = ({ job, onClose, onSubmit }) => {
     try {
       setSubmitting(true);
       setSubmitError(null);
-      if (cvFile) {
-        await studentService.uploadCV(cvFile);
-      }
-      await applicationService.applyToJob(job.id);
+      await applicationService.applyToJob(job.id, coverLetter, cvFile || null);
       setSubmitted(true);
       setTimeout(() => { onSubmit(); onClose(); }, 1800);
     } catch (err) {
@@ -127,7 +124,7 @@ const JobDetailsPage = () => {
   const [loading,   setLoading]   = useState(true);
   const [error,     setError]     = useState(null);
   const [saved,     setSaved]     = useState(false);
-  const [applied,   setApplied]   = useState(false); // [FIX 5] هاد بيتحدث من الـ API
+  const [applied,   setApplied]   = useState(false); 
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -135,13 +132,11 @@ const JobDetailsPage = () => {
       try {
         setLoading(true);
 
-        // [FIX 5] جيب الـ job وتحقق من applications بنفس الوقت
         const [data, myApps] = await Promise.all([
           jobService.getJobById(id),
-          studentService.getMyApplications().catch(() => []), // لو فشل ما يأثر
+          studentService.getMyApplications().catch(() => []), 
         ]);
 
-        // [FIX 5] تحقق إذا الطالب قدّم على هالوظيفة قبل
         const alreadyApplied = myApps.some(a => String(a.job_id) === String(id));
         setApplied(alreadyApplied);
 
@@ -149,7 +144,7 @@ const JobDetailsPage = () => {
           id:              String(data.id),
           title:           data.title           || '',
           company:         data.company_name    || data.company || '',
-          // [FIX 6] logo بحاجة base URL
+        
           companyLogo:     data.logo
             ? `${BASE_URL.replace('/api', '')}/${data.logo}`
             : null,
@@ -161,7 +156,7 @@ const JobDetailsPage = () => {
           mode:            data.mode            || 'Remote',
           field:           data.field           || '',
           salary:          data.salary          || '',
-          // [FIX 7] skills_required هو الاسم الصح من الـ DB
+          
           skills: data.skills_required
             ? (Array.isArray(data.skills_required) ? data.skills_required : [])
             : (data.skills
@@ -366,7 +361,6 @@ const JobDetailsPage = () => {
                 </div>
               )}
 
-              {/* [FIX 5] Apply button — disabled لو already applied أو الـ deadline فات */}
               {applied
                 ? (
                   <div className="jd__applied-msg">

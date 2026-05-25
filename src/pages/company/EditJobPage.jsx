@@ -66,11 +66,10 @@ const EditJobPage = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        // GET /api/jobs/:id  (public route — already exists in your router)
+        
         const data = await jobService.getJobById(id);
-        const j    = data.job ?? data; // handle { job:{} } or direct object
+        const j    = data.job ?? data; 
 
-        /* skills_required: may arrive as array or JSON string */
         let skills = [];
         if (Array.isArray(j.skills_required)) {
           skills = j.skills_required;
@@ -78,7 +77,7 @@ const EditJobPage = () => {
           try { skills = JSON.parse(j.skills_required); } catch { skills = []; }
         }
 
-        /* deadline: "2026-11-30 00:00:00" → "2026-11-30" */
+        
         const deadline = j.deadline ? String(j.deadline).split(' ')[0] : '';
 
         /* status: derive from is_active + status fields */

@@ -38,8 +38,11 @@ const studentService = {
     return await uploadFile('/student/upload-cv', formData);
   },
 
-  // POST /api/student/upload-avatar  — field name: "avatar"
-  // [FIX] method جديدة — كانت ناقصة
+deleteCV: async () => {
+  return await request('DELETE', '/student/cv');
+},
+
+
   uploadAvatar: async (file) => {
     const formData = new FormData();
     formData.append('avatar', file);
@@ -47,5 +50,6 @@ const studentService = {
   },
 
 };
+
 
 export default studentService;

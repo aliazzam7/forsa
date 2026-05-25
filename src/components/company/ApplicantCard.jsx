@@ -19,14 +19,6 @@ const formatDate = (dateStr) => {
   }
 };
 
-/* ══════════════════════════════════════════
-   ApplicantCard
-   Props:
-     applicant  { id, name, email, skills, status,
-                  cvUrl, coverLetter, appliedAt, profileUrl }
-     onAccept   (id) => void
-     onReject   (id) => void
-══════════════════════════════════════════ */
 const ApplicantCard = ({ applicant, onAccept, onReject }) => {
   const [showCover, setShowCover] = useState(false);
 

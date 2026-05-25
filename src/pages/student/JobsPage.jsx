@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import StudentNavbar from '../../components/student/StudentNavbar';
 import JobListCard from '../../components/student/JobListCard';
 import jobService from '../../services/jobService';
-import studentService from '../../services/studentService'; // [FIX 2] أضفنا import
-import { BASE_URL } from '../../services/api';              // [FIX 1] أضفنا import
+import studentService from '../../services/studentService'; 
+import { BASE_URL } from '../../services/api';              
 import './JobsPage.css';
 
 const TYPES  = ['All', 'Full-time', 'Part-time', 'Internship'];
@@ -13,12 +13,12 @@ const MODES  = ['All', 'Remote', 'Onsite', 'Hybrid'];
 const FIELDS = ['All', 'Frontend', 'Backend', 'Full-stack', 'AI/ML', 'Design', 'Mobile', 'DevOps', 'Security', 'Testing'];
 const PER_PAGE = 6;
 
-// [FIX 1] mapJob بيبني الـ logo URL الصح
+
 const mapJob = (job) => ({
   id: String(job.id),
   title:       job.title        || '',
   company:     job.company_name || job.company || '',
-  // logo بحاجة base URL — مو بس الـ path
+  
   companyLogo: job.logo
     ? (job.logo.startsWith('http') ? job.logo : `${BASE_URL.replace('/api', '')}/${job.logo}`)
     : null,
@@ -26,7 +26,6 @@ const mapJob = (job) => ({
   type:        job.type      || 'Full-time',
   mode:        job.mode      || 'Remote',
   field:       job.field     || '',
-  // skills_required هو الاسم الصح من الـ DB
   skills: job.skills_required
     ? (Array.isArray(job.skills_required) ? job.skills_required : [])
     : (job.skills
@@ -48,7 +47,7 @@ const JobsPage = () => {
   const [page,        setPage]        = useState(1);
   const [saved,       setSaved]       = useState([]);
   const [showFilters, setShowFilters] = useState(false);
-  // [FIX 2] اسم الطالب من الـ API مو hardcoded
+
   const [studentName, setStudentName] = useState('');
 
   useEffect(() => {
@@ -108,7 +107,6 @@ const JobsPage = () => {
   if (loading) {
     return (
       <div className="jp">
-        {/* [FIX 2] studentName بدل "Ahmed" */}
         <StudentNavbar studentName={studentName} notifCount={2} />
         <main className="jp__main">
           <div style={{ textAlign: 'center', padding: '4rem', color: '#6B7A99' }}>
@@ -134,7 +132,6 @@ const JobsPage = () => {
 
   return (
     <div className="jp">
-      {/* [FIX 2] studentName من الـ API */}
       <StudentNavbar studentName={studentName} notifCount={2} />
 
       <main className="jp__main">

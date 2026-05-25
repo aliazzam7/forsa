@@ -32,12 +32,6 @@ const ApplicantsPage = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        /*
-          GET /api/company/applications/:jobId
-          Returns: [ { id, user_id, job_id, status, created_at,
-                       student_name, student_email, cv_url, skills,
-                       cover_letter, job_title, applied_at } ]
-        */
         const data = await applicationService.getJobApplicants(jobId);
         const raw  = Array.isArray(data) ? data : (data.applicants ?? []);
 

@@ -403,8 +403,6 @@
   .settings-nav-item { font-size: 12px; padding: 9px 10px; }
 }
 
-/* ─── Add these to your existing SettingsPage.css ─── */
-
 /* Error banner (top of card body) */
 .form-error-banner {
   background: #fef2f2;

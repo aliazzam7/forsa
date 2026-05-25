@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, Briefcase, ArrowRight, BookmarkPlus } from 'lucide-react';
-import { BASE_URL } from '../../services/api'; // [FIX 1] أضفنا import لـ BASE_URL
+import { MapPin, Clock, Briefcase, ArrowRight } from 'lucide-react';
+import { BASE_URL } from '../../services/api';
 import './JobListCard.css';
 
 const TYPE_COLORS = {
@@ -28,8 +28,6 @@ const JobListCard = ({
   skills      = ['React', 'CSS', 'TypeScript'],
   deadline    = '2025-08-30',
   postedAgo   = '2 days ago',
-  saved       = false,
-  onSave,
   onViewAll,
 }) => {
   const navigate = useNavigate();
@@ -41,8 +39,6 @@ const JobListCard = ({
     ? new Date(deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
     : null;
 
-  // [FIX 1] بناء الـ logo URL الصح مع base URL
-  // لو الـ logo فيه http بالأول خليه كما هو، غير هيك أضف base URL قدامه
   const logoSrc = companyLogo
     ? (companyLogo.startsWith('http') ? companyLogo : `${BASE_URL.replace('/api', '')}/${companyLogo}`)
     : null;
@@ -60,13 +56,6 @@ const JobListCard = ({
           <h3 className="jlc__title">{title}</h3>
           <p className="jlc__company">{company}</p>
         </div>
-        <button
-          className={`jlc__save ${saved ? 'jlc__save--saved' : ''}`}
-          onClick={(e) => { e.stopPropagation(); onSave && onSave(id); }}
-          title="Save job"
-        >
-          <BookmarkPlus size={17} />
-        </button>
       </div>
 
       {/* Tags */}

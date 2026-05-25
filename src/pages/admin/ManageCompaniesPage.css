@@ -241,8 +241,6 @@
   .filter-tab { padding: 7px 12px; font-size: 12px; }
 }
 
-/* ─── Add these to your existing ManageCompaniesPage.css ─── */
-
 /* Make status badge clickable */
 .status-badge--clickable {
   cursor: pointer;

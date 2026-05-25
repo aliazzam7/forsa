@@ -18,11 +18,6 @@ const MyJobsPage = () => {
     const load = async () => {
       try {
         const data = await companyService.getMyJobs();
-        /*
-          Backend returns array of jobs:
-          [ { id, title, type, mode, is_active, deadline, skills,
-              applicants_count (or applicantsCount), created_at, status } ]
-        */
         const raw = Array.isArray(data) ? data : (data.jobs ?? []);
 
         // Normalize fields to match JobCard props

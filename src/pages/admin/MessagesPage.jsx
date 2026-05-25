@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Send, MessageSquare } from 'lucide-react';
+import { Search, Mail, MailOpen, Clock, User, Inbox } from 'lucide-react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminHeader  from '../../components/admin/AdminHeader';
 import useAdminProfile from '../../components/hooks/useAdminProfile';
@@ -13,7 +13,6 @@ const MessagesPage = () => {
   const [messages, setMessages] = useState([]);
   const [selected, setSelected] = useState(null);
   const [search,   setSearch]   = useState('');
-  const [reply,    setReply]    = useState('');
   const [loading,  setLoading]  = useState(true);
 
   useEffect(() => {
@@ -22,17 +21,12 @@ const MessagesPage = () => {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(r => r.json())
-      .then(json => {
-        if (json.data) setMessages(json.data);
-      })
+      .then(json => { if (json.data) setMessages(json.data); })
       .finally(() => setLoading(false));
   }, []);
 
   const handleSelect = (msg) => {
     setSelected(msg);
-    setReply('');
-
-    // mark as read locally + API
     if (!msg.is_read) {
       setMessages(prev =>
         prev.map(m => m.id === msg.id ? { ...m, is_read: 1 } : m)
@@ -45,15 +39,9 @@ const MessagesPage = () => {
     }
   };
 
-  const handleSendReply = () => {
-    if (!reply.trim()) return;
-    alert(`Reply sent to ${selected.email}:\n\n${reply}`);
-    setReply('');
-  };
-
   const filtered = messages.filter(m =>
-    m.name.toLowerCase().includes(search.toLowerCase())    ||
-    m.email.toLowerCase().includes(search.toLowerCase())   ||
+    m.name.toLowerCase().includes(search.toLowerCase())  ||
+    m.email.toLowerCase().includes(search.toLowerCase()) ||
     m.message.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -61,9 +49,33 @@ const MessagesPage = () => {
 
   const formatDate = (dateStr) => {
     const d = new Date(dateStr);
-    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-      + ' · '
-      + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    const now = new Date();
+    const isToday = d.toDateString() === now.toDateString();
+    if (isToday) {
+      return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    }
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  };
+
+  const formatFullDate = (dateStr) => {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-GB', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }) + ' at ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  };
+
+  const getInitials = (name) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  };
+
+  // Color palette for avatars based on first letter
+  const avatarColors = [
+    '#3B5BDB', '#1098AD', '#2F9E44', '#E67700', '#C2255C',
+    '#6741D9', '#0C8599', '#2B8A3E', '#E8590C', '#862E9C'
+  ];
+  const getAvatarColor = (name) => {
+    const idx = name.charCodeAt(0) % avatarColors.length;
+    return avatarColors[idx];
   };
 
   return (
@@ -72,106 +84,159 @@ const MessagesPage = () => {
       <div className="admin-main">
         <AdminHeader
           title="Messages"
-          subtitle={`${unreadCount} unread message${unreadCount !== 1 ? 's' : ''} from users`}
+          subtitle={`${unreadCount} unread message${unreadCount !== 1 ? 's' : ''}`}
           adminName={adminProfile.name}
           adminAvatar={adminProfile.avatar}
         />
         <div className="admin-content">
           <div className="messages-layout">
 
-            {/* ─── Inbox ─── */}
-            <div className="inbox-panel">
-              <div className="inbox-header">
-                <h2 className="section-title" style={{ fontSize: '15px' }}>Inbox</h2>
-                <div className="inbox-search">
-                  <Search size={14} color="#9aabc2" />
-                  <input
-                    type="text"
-                    className="inbox-search-input"
-                    placeholder="Search messages..."
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                  />
+            {/* ── Sidebar / Inbox List ── */}
+            <aside className="inbox-panel">
+              {/* Stats bar */}
+              <div className="inbox-stats">
+                <div className="stat-chip">
+                  <Mail size={13} />
+                  <span>{messages.length} total</span>
                 </div>
+                {unreadCount > 0 && (
+                  <div className="stat-chip stat-chip--unread">
+                    <span className="stat-dot" />
+                    <span>{unreadCount} unread</span>
+                  </div>
+                )}
               </div>
 
+              {/* Search */}
+              <div className="inbox-search-wrap">
+                <Search size={14} className="search-icon" />
+                <input
+                  type="text"
+                  className="inbox-search-input"
+                  placeholder="Search messages…"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+              </div>
+
+              {/* Divider label */}
+              <div className="inbox-label">
+                <Inbox size={12} />
+                <span>Inbox</span>
+              </div>
+
+              {/* List */}
               <div className="inbox-list">
                 {loading && (
-                  <div style={{ textAlign: 'center', color: '#9aabc2', padding: '40px 20px', fontSize: '13px' }}>
-                    Loading…
+                  <div className="state-placeholder">
+                    <div className="skeleton-list">
+                      {[1,2,3,4].map(i => (
+                        <div key={i} className="skeleton-item">
+                          <div className="skeleton-avatar" />
+                          <div className="skeleton-lines">
+                            <div className="skeleton-line skeleton-line--name" />
+                            <div className="skeleton-line skeleton-line--email" />
+                            <div className="skeleton-line skeleton-line--preview" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
                 {!loading && filtered.length === 0 && (
-                  <div style={{ textAlign: 'center', color: '#9aabc2', padding: '40px 20px', fontSize: '13px' }}>
-                    No messages found.
+                  <div className="state-placeholder">
+                    <Mail size={32} strokeWidth={1.2} />
+                    <p>No messages found</p>
                   </div>
                 )}
-                {filtered.map(msg => (
+                {!loading && filtered.map(msg => (
                   <div
                     key={msg.id}
-                    className={`inbox-item${selected?.id === msg.id ? ' selected' : ''}`}
+                    className={`inbox-item${selected?.id === msg.id ? ' inbox-item--active' : ''}${!msg.is_read ? ' inbox-item--unread' : ''}`}
                     onClick={() => handleSelect(msg)}
                   >
-                    <div className="inbox-avatar">{msg.name.charAt(0).toUpperCase()}</div>
-                    <div className="inbox-item-body">
-                      <div className="inbox-item-top">
-                        <span className="inbox-sender">{msg.name}</span>
-                        <span className="inbox-time">
-                          {new Date(msg.created_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-                        </span>
-                      </div>
-                      <p className="inbox-subject">{msg.email}</p>
-                      <p className="inbox-preview">{msg.message.slice(0, 60)}…</p>
+                    <div
+                      className="inbox-avatar"
+                      style={{ background: getAvatarColor(msg.name) }}
+                    >
+                      {getInitials(msg.name)}
                     </div>
-                    {!msg.is_read && <div className="unread-dot" />}
+
+                    <div className="inbox-body">
+                      <div className="inbox-row-top">
+                        <span className="inbox-name">{msg.name}</span>
+                        <span className="inbox-time">{formatDate(msg.created_at)}</span>
+                      </div>
+                      <span className="inbox-email">{msg.email}</span>
+                      <p className="inbox-preview">
+                        {msg.message.length > 65 ? msg.message.slice(0, 65) + '…' : msg.message}
+                      </p>
+                    </div>
+
+                    {!msg.is_read && <span className="unread-badge" />}
                   </div>
                 ))}
               </div>
-            </div>
+            </aside>
 
-            {/* ─── Detail ─── */}
-            <div className="message-detail-panel">
+            {/* ── Detail View ── */}
+            <main className="detail-panel">
               {!selected ? (
                 <div className="detail-empty">
-                  <MessageSquare size={40} strokeWidth={1.4} />
-                  <p>Select a message to read</p>
+                  <div className="empty-icon-wrap">
+                    <MailOpen size={36} strokeWidth={1.2} />
+                  </div>
+                  <h3>No message selected</h3>
+                  <p>Click on a message from the inbox to read it</p>
                 </div>
               ) : (
-                <>
+                <div className="detail-inner">
+                  {/* Header */}
                   <div className="detail-header">
-                    <h2 className="detail-subject">Message from {selected.name}</h2>
-                    <div className="detail-meta">
-                      <div className="detail-sender-info">
-                        <div className="detail-avatar">{selected.name.charAt(0).toUpperCase()}</div>
-                        <div>
-                          <div className="detail-sender-name">{selected.name}</div>
-                          <div className="detail-sender-email">{selected.email}</div>
-                        </div>
+                    <div className="detail-header-top">
+                      <div
+                        className="detail-avatar"
+                        style={{ background: getAvatarColor(selected.name) }}
+                      >
+                        {getInitials(selected.name)}
                       </div>
-                      <span className="detail-timestamp">{formatDate(selected.created_at)}</span>
+                      <div className="detail-sender">
+                        <h2 className="detail-sender-name">{selected.name}</h2>
+                        <a
+                          href={`mailto:${selected.email}`}
+                          className="detail-sender-email"
+                        >
+                          {selected.email}
+                        </a>
+                      </div>
+                      <div className="detail-badge-read">
+                        <MailOpen size={12} />
+                        <span>Read</span>
+                      </div>
+                    </div>
+
+                    <div className="detail-meta-row">
+                      <div className="meta-item">
+                        <User size={12} />
+                        <span>From user</span>
+                      </div>
+                      <div className="meta-divider" />
+                      <div className="meta-item">
+                        <Clock size={12} />
+                        <span>{formatFullDate(selected.created_at)}</span>
+                      </div>
                     </div>
                   </div>
 
+                  {/* Message Body */}
                   <div className="detail-body">
-                    <p className="detail-message-text">{selected.message}</p>
+                    <div className="message-bubble">
+                      <p className="message-text">{selected.message}</p>
+                    </div>
                   </div>
-
-                  <div className="detail-reply">
-                    <textarea
-                      className="reply-input"
-                      placeholder={`Reply to ${selected.email}...`}
-                      value={reply}
-                      onChange={e => setReply(e.target.value)}
-                      rows={2}
-                    />
-                    <button className="btn-reply" onClick={handleSendReply}>
-                      <Send size={15} strokeWidth={2} />
-                      Send
-                    </button>
-                  </div>
-                </>
+                </div>
               )}
-            </div>
+            </main>
 
           </div>
         </div>
@@ -181,194 +246,3 @@ const MessagesPage = () => {
 };
 
 export default MessagesPage;
-
-// import React, { useState } from 'react';
-// import { Search, Mail, Send, MessageSquare } from 'lucide-react';
-// import AdminSidebar from '../../components/admin/AdminSidebar';
-// import AdminHeader from '../../components/admin/AdminHeader';
-// import './MessagesPage.css';
-
-// const MOCK_MESSAGES = [
-//   {
-//     id: 1,
-//     sender: 'Ahmad Khalil',
-//     email: 'ahmad.khalil@gmail.com',
-//     subject: 'Issue with job application',
-//     preview: "I've been trying to apply for a job and the system keeps showing an error...",
-//     message: "Hello,\n\nI've been trying to apply for a job on your platform and the system keeps showing an error message every time I click 'Submit Application'. I've tried multiple browsers and devices but the issue persists.\n\nCould you please look into this?\n\nThank you,\nAhmad Khalil",
-//     time: '10:32 AM',
-//     date: '14 May 2026',
-//     unread: true,
-//   },
-//   {
-//     id: 2,
-//     sender: 'Lara Mansour',
-//     email: 'lara.mansour@techco.com',
-//     subject: 'Company profile verification request',
-//     preview: 'We submitted our company profile 3 days ago but it has not been approved...',
-//     message: "Dear Admin,\n\nWe submitted our company profile (TechCo Lebanon) 3 days ago but it has not been approved yet. We have a job posting we urgently need to publish.\n\nPlease advise on the expected timeline for approval.\n\nBest regards,\nLara Mansour\nHR Manager, TechCo Lebanon",
-//     time: '9:15 AM',
-//     date: '14 May 2026',
-//     unread: true,
-//   },
-//   {
-//     id: 3,
-//     sender: 'Omar Farhat',
-//     email: 'omar.f@outlook.com',
-//     subject: 'Unable to reset password',
-//     preview: "I requested a password reset yesterday but haven't received any email...",
-//     message: "Hi there,\n\nI requested a password reset yesterday but haven't received any email. I've checked my spam folder as well. My registered email is omar.f@outlook.com.\n\nPlease help me regain access to my account.\n\nThank you,\nOmar",
-//     time: '8:47 AM',
-//     date: '13 May 2026',
-//     unread: false,
-//   },
-//   {
-//     id: 4,
-//     sender: 'Maya Rizk',
-//     email: 'maya.rizk@university.edu',
-//     subject: 'Suggestion: Add internship filter',
-//     preview: 'It would be great if you could add a dedicated filter for internship positions...',
-//     message: "Hello Forsa Team,\n\nI'm a university student and I regularly use your platform. It would be great if you could add a dedicated filter for internship positions on the search page, as currently it's hard to separate internships from full-time jobs.\n\nJust a suggestion that I believe would help many students like me!\n\nBest,\nMaya Rizk",
-//     time: '5:20 PM',
-//     date: '12 May 2026',
-//     unread: false,
-//   },
-// ];
-
-// const MessagesPage = () => {
-//   const [messages, setMessages] = useState(MOCK_MESSAGES);
-//   const [selected, setSelected] = useState(null);
-//   const [search, setSearch] = useState('');
-//   const [reply, setReply] = useState('');
-
-//   const filtered = messages.filter(m =>
-//     m.sender.toLowerCase().includes(search.toLowerCase()) ||
-//     m.subject.toLowerCase().includes(search.toLowerCase()) ||
-//     m.email.toLowerCase().includes(search.toLowerCase())
-//   );
-
-//   const handleSelect = (msg) => {
-//     setSelected(msg);
-//     setReply('');
-//     /* Mark as read */
-//     setMessages(prev => prev.map(m => m.id === msg.id ? { ...m, unread: false } : m));
-//   };
-
-//   const handleSendReply = () => {
-//     if (!reply.trim()) return;
-//     alert(`Reply sent to ${selected.email}:\n\n${reply}`);
-//     setReply('');
-//   };
-
-//   const unreadCount = messages.filter(m => m.unread).length;
-
-//   return (
-//     <div className="admin-layout">
-//       <AdminSidebar />
-//       <div className="admin-main">
-//         <AdminHeader
-//           title="Messages"
-//           subtitle={`${unreadCount} unread message${unreadCount !== 1 ? 's' : ''} from users`}
-//         />
-//         <div className="admin-content">
-//           <div className="messages-layout">
-
-//             {/* ─── Inbox Panel ─────────────────────────────── */}
-//             <div className="inbox-panel">
-//               <div className="inbox-header">
-//                 <h2 className="section-title" style={{ fontSize: '15px' }}>
-//                   Inbox
-//                 </h2>
-//                 <div className="inbox-search">
-//                   <Search size={14} color="#9aabc2" />
-//                   <input
-//                     type="text"
-//                     className="inbox-search-input"
-//                     placeholder="Search messages..."
-//                     value={search}
-//                     onChange={e => setSearch(e.target.value)}
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="inbox-list">
-//                 {filtered.length === 0 && (
-//                   <div style={{ textAlign: 'center', color: '#9aabc2', padding: '40px 20px', fontSize: '13px' }}>
-//                     No messages found.
-//                   </div>
-//                 )}
-//                 {filtered.map(msg => (
-//                   <div
-//                     key={msg.id}
-//                     className={`inbox-item${selected?.id === msg.id ? ' selected' : ''}`}
-//                     onClick={() => handleSelect(msg)}
-//                   >
-//                     <div className="inbox-avatar">
-//                       {msg.sender.charAt(0)}
-//                     </div>
-//                     <div className="inbox-item-body">
-//                       <div className="inbox-item-top">
-//                         <span className="inbox-sender">{msg.sender}</span>
-//                         <span className="inbox-time">{msg.time}</span>
-//                       </div>
-//                       <p className="inbox-subject">{msg.subject}</p>
-//                       <p className="inbox-preview">{msg.preview}</p>
-//                     </div>
-//                     {msg.unread && <div className="unread-dot" />}
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-
-//             {/* ─── Detail Panel ─────────────────────────────── */}
-//             <div className="message-detail-panel">
-//               {!selected ? (
-//                 <div className="detail-empty">
-//                   <MessageSquare size={40} strokeWidth={1.4} />
-//                   <p>Select a message to read</p>
-//                 </div>
-//               ) : (
-//                 <>
-//                   <div className="detail-header">
-//                     <h2 className="detail-subject">{selected.subject}</h2>
-//                     <div className="detail-meta">
-//                       <div className="detail-sender-info">
-//                         <div className="detail-avatar">{selected.sender.charAt(0)}</div>
-//                         <div>
-//                           <div className="detail-sender-name">{selected.sender}</div>
-//                           <div className="detail-sender-email">{selected.email}</div>
-//                         </div>
-//                       </div>
-//                       <span className="detail-timestamp">{selected.date} · {selected.time}</span>
-//                     </div>
-//                   </div>
-
-//                   <div className="detail-body">
-//                     <p className="detail-message-text">{selected.message}</p>
-//                   </div>
-
-//                   <div className="detail-reply">
-//                     <textarea
-//                       className="reply-input"
-//                       placeholder={`Reply to ${selected.email}...`}
-//                       value={reply}
-//                       onChange={e => setReply(e.target.value)}
-//                       rows={2}
-//                     />
-//                     <button className="btn-reply" onClick={handleSendReply}>
-//                       <Send size={15} strokeWidth={2} />
-//                       Send
-//                     </button>
-//                   </div>
-//                 </>
-//               )}
-//             </div>
-
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MessagesPage;

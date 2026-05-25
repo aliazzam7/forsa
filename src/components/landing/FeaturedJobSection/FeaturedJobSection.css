@@ -62,7 +62,6 @@
   transition: 0.35s ease;
   position: relative;
   overflow: hidden;
-  /* أضف هذول الثلاثة */
   display: flex;
   flex-direction: column;
 }
@@ -127,29 +126,23 @@
   color: #175cd3;
 }
 
-/* .fjs-job-title {
-  font-size: 24px;
-  font-weight: 800;
-  color: #1a2340;
-  margin-bottom: 18px;
-} */
 
 .fjs-job-title {
   font-size: 24px;
   font-weight: 800;
   color: #1a2340;
-  margin-bottom: 18px;
-  margin-top: auto;
-  /* التعديلات الجديدة */
+  margin: 0 0 18px 0;   
   word-break: break-word;
   overflow-wrap: break-word;
   white-space: normal;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.3;
-  min-height: 0;
+  line-height: 1.35;
+}
+.fjs-spacer {
+  flex: 1;
 }
 
 .fjs-company,

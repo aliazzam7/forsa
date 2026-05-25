@@ -258,7 +258,7 @@ const TABS = [
 ];
 
 const SettingsPage = () => {
-  const adminProfile = useAdminProfile(); // ← hook مشترك
+  const adminProfile = useAdminProfile(); 
   const [activeTab, setActiveTab] = useState('profile');
 
   return (

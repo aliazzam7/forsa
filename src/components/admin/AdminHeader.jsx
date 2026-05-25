@@ -21,18 +21,6 @@ const AdminHeader = ({ title, subtitle, adminName, adminAvatar }) => {
       </div>
 
       <div className="header-right">
-        {/* Search bar */}
-        {/* <div className="header-search">
-          <Search size={15} className="search-icon" />
-          <input type="text" placeholder="Search..." className="search-input" />
-        </div> */}
-
-        {/* Notification bell */}
-        {/* <button className="header-icon-btn" aria-label="Notifications">
-          <Bell size={18} strokeWidth={2} />
-          <span className="notif-dot" />
-        </button> */}
-
         {/* Admin badge */}
         <div className="header-admin-badge">
           <div className="admin-avatar">

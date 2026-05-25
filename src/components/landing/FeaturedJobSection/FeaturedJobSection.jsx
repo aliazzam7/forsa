@@ -148,7 +148,7 @@ const FeaturedJobsSection = () => {
                     </span>
                   ))}
                 </div>
-
+               <div className="fjs-spacer" />
                 <button
                   className="fjs-button"
                   onClick={() => handleApply(job.id)}

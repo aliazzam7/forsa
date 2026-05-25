@@ -228,8 +228,6 @@
   .btn-action { padding: 7px; border-radius: 8px; }
 }
 
-/* ─── Add these to your existing ManageJobsPage.css ─── */
-
 /* Deleted row styling */
 .deleted-row {
   opacity: 0.6;

@@ -45,14 +45,6 @@ const CompanyDashboard = () => {
     const load = async () => {
       try {
         const data = await companyService.getDashboard();
-        /*
-          Backend returns:
-          {
-            stats: { total_jobs, total_applicants, accepted, pending, rejected },
-            recent_applicants: [ { id, student_name, student_email, job_title, status, applied_at } ],
-            chart_data: [ { month, jobs, apps } ]
-          }
-        */
         setStats(data.stats ?? {
           total_jobs: 0, total_applicants: 0, accepted: 0, pending: 0, rejected: 0,
         });
