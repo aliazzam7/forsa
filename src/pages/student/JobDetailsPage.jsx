@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, MapPin, Clock, Briefcase, Globe, Calendar,
-  CheckCircle, BookmarkPlus, Share2, Building2, Users,
+  CheckCircle, Building2, Users,
   X, Upload, Send, AlertCircle
 } from 'lucide-react';
 import StudentNavbar from '../../components/student/StudentNavbar';
@@ -126,18 +126,21 @@ const JobDetailsPage = () => {
   const [saved,     setSaved]     = useState(false);
   const [applied,   setApplied]   = useState(false); 
   const [showModal, setShowModal] = useState(false);
+  const [studentName, setStudentName] = useState(''); 
 
   useEffect(() => {
     const fetchJob = async () => {
       try {
         setLoading(true);
 
-        const [data, myApps] = await Promise.all([
-          jobService.getJobById(id),
-          studentService.getMyApplications().catch(() => []), 
-        ]);
+       const [data, myApps, profile] = await Promise.all([
+        jobService.getJobById(id),
+        studentService.getMyApplications().catch(() => []),
+        studentService.getProfile().catch(() => ({ name: '' })),
+      ]);
 
-        const alreadyApplied = myApps.some(a => String(a.job_id) === String(id));
+      setStudentName(profile.name || '');
+      const alreadyApplied = myApps.some(a => String(a.job_id) === String(id));
         setApplied(alreadyApplied);
 
         const normalized = {
@@ -198,7 +201,7 @@ const JobDetailsPage = () => {
   if (loading) {
     return (
       <div className="jd">
-        <StudentNavbar studentName="Ahmed" notifCount={2} />
+        <StudentNavbar studentName={studentName} notifCount={2} />
         <main className="jd__main">
           <div style={{ textAlign: 'center', padding: '4rem', color: '#6B7A99' }}>
             Loading job details...
@@ -211,7 +214,7 @@ const JobDetailsPage = () => {
   if (error || !job) {
     return (
       <div className="jd">
-        <StudentNavbar studentName="Ahmed" notifCount={2} />
+        <StudentNavbar studentName={studentName} notifCount={2} />
         <main className="jd__main">
           <button className="jd__back" onClick={() => navigate('/student/jobs')}>
             <ArrowLeft size={16} /> Back to Jobs
@@ -236,7 +239,7 @@ const JobDetailsPage = () => {
 
   return (
     <div className="jd">
-      <StudentNavbar studentName="Ahmed" notifCount={2} />
+      <StudentNavbar studentName={studentName} notifCount={2} />
 
       <main className="jd__main">
 
@@ -263,15 +266,6 @@ const JobDetailsPage = () => {
                     <span className="jd__tag jd__tag--mode"><Globe size={12} /> {job.mode}</span>
                     {job.field && <span className="jd__tag jd__tag--field">{job.field}</span>}
                   </div>
-                </div>
-                <div className="jd__hero-actions">
-                  <button
-                    className={`jd__save-btn ${saved ? 'jd__save-btn--saved' : ''}`}
-                    onClick={() => setSaved(v => !v)}
-                  >
-                    <BookmarkPlus size={17} />
-                  </button>
-                  <button className="jd__share-btn"><Share2 size={17} /></button>
                 </div>
               </div>
 
@@ -357,7 +351,7 @@ const JobDetailsPage = () => {
               {job.salary && (
                 <div className="jd__salary">
                   <p className="jd__salary-label">Salary Range</p>
-                  <p className="jd__salary-value">{job.salary}</p>
+                  <p className="jd__salary-value">{job.salary}$</p>
                 </div>
               )}
 
@@ -383,13 +377,6 @@ const JobDetailsPage = () => {
                 )
               }
 
-              <button
-                className={`jd__save-full ${saved ? 'jd__save-full--saved' : ''}`}
-                onClick={() => setSaved(v => !v)}
-              >
-                <BookmarkPlus size={15} />
-                {saved ? 'Saved' : 'Save Job'}
-              </button>
             </div>
 
             {(job.company || job.companyAbout) && (
